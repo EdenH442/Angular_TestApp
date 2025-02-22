@@ -1,0 +1,68 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs
+*.log
+logs/*
+
+# Dependency directories
+jspm_packages/
+bower_components/
+
+# Compiled output
+dist/
+tmp/
+temp/
+out-tsc/
+out/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Angular specific
+.angular/cache/
+.angular/cli/
+
+# Electron specific
+electron/dist/
+electron/out/
+electron/main.js
+electron/main.js.map
+
+# ASP.NET specific
+project.lock.json
+project.fragment.lock.json
+artifacts/
+project.json
+project.json.user
+*.csproj.user
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# .NET specific
+bin/
+obj/
+*.dll
+*.exe
+*.app
+*.log
+*.vspscc
+*.vssscc
+.vscode/
+.vs/
