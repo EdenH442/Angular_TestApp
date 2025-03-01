@@ -6,13 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:5293/api/actions'; 
+  private apiUrl = 'http://localhost:5216/api/actions'; 
 
   constructor(private http: HttpClient) {}
 
   // Call the button API
   buttonClicked(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/btnClicked`, {});
+    return this.http.post(`${this.apiUrl}/buttonclicked`, {});
   }
 
   showItemList(): Observable<any> {

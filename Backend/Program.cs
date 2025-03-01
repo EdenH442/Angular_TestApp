@@ -1,42 +1,41 @@
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args); // Create a new WebApplication instance with default settings.
 
-// Add services to the container.
-// Registering controllers (important for API routing)
-builder.Services.AddControllers();
+// Add services to the dependency injection container.
 
-// Add OpenAPI (Swagger) support (optional for documentation)
-builder.Services.AddOpenApi();
+builder.Services.AddControllers(); // Register controllers to handle API requests.
 
-// Add CORS configuration
+builder.Services.AddEndpointsApiExplorer(); // Enables API explorer (required for minimal APIs and Swagger).
+builder.Services.AddSwaggerGen(); // Registers Swagger for API documentation.
+
+builder.Services.AddLogging(); // Enables logging services for debugging and diagnostics.
+
+// Configure CORS (Cross-Origin Resource Sharing) policy.
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.AllowAnyOrigin()   // Allow any origin for testing (change in production!)
-              .AllowAnyMethod()   // Allow any HTTP method (GET, POST, etc.)
-              .AllowAnyHeader();  // Allow any header
+        policy.AllowAnyOrigin()   // Allow requests from any origin (for testing; restrict in production).
+              .AllowAnyMethod()   // Allow all HTTP methods (GET, POST, PUT, DELETE, etc.).
+              .AllowAnyHeader();  // Allow any headers in the request.
     });
 });
 
-// Build the app
-var app = builder.Build();
+var app = builder.Build(); // Build the application pipeline.
 
-// Configure the HTTP request pipeline.
+// Configure middleware for handling HTTP requests.
 
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment()) // Only enable Swagger in development mode.
 {
-    // Enable OpenAPI (Swagger) for development environment
-    app.MapOpenApi();
+    app.UseSwagger();    // Enables Swagger JSON endpoint for API documentation.
+    app.UseSwaggerUI();  // Provides a user-friendly Swagger UI to test APIs.
 }
 
-// Enable HTTPS redirection (optional but recommended for production)
-app.UseHttpsRedirection();
+app.UseHttpsRedirection(); // Redirect HTTP requests to HTTPS (recommended for security).
 
-// Enable CORS globally for all endpoints (using the "AllowAll" policy)
-app.UseCors("AllowAll");
+app.UseCors("AllowAll"); // Apply the configured CORS policy globally.
 
-// Map the controllers to API routes
-app.MapControllers();
+app.UseAuthorization(); // Enables authorization (required if using authentication/role-based access control).
 
-// Run the application
-app.Run();
+app.MapControllers(); // Maps controller routes, making API endpoints accessible.
+
+app.Run(); // Start listening for incoming HTTP requests.
